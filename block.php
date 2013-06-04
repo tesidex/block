@@ -25,7 +25,7 @@ list($pg, $d, $durl) = cot_import_pagenav('d',
 $c = cot_import('c', 'G', 'TXT');
 $c = (!isset($structure['page'][$c])) ? '' : $c;
 
-$cfg['plugin']['block']['category'] = 'blogs|4|150,newspaper|2|400,expertise|1|250,calendar|1|250';
+$cfg['plugin']['block']['category'] = 'blogs|4|150,newspaper|2|400,expertise|1|250,calendar|1|250,company-news|5|150';
 $categories = explode(',', $cfg['plugin']['block']['category']);
 $jj = 0;
 $cats = array();
@@ -101,7 +101,7 @@ foreach ($cats as $k => $v) {
 			WHERE $where ORDER BY page_date DESC LIMIT " . $v[3]['d'] . ", " . $v[1]);
     $totalblock = $db->query("SELECT COUNT(*)
 			FROM $db_pages AS p $block_join_tables WHERE " . $where)->fetchColumn();
-
+//if ($cat == 'calendar') cot_print ($sql);
     if ($v[3]['d'] < 0 || $totalblock > 0 && $v[3]['d'] > $totalblock) {
 	cot_die_message(404);
     }

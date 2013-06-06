@@ -30,9 +30,11 @@ $categories = explode(',', $cfg['plugin']['block']['category']);
 $jj = 0;
 $cats = array();
 
+//cot_print($categories);
 
 foreach ($categories as $v) {
     $v = explode('|', trim($v));
+//    if ($v[0] == 'company-news') cot_print ($structure['page']);
     if (isset($structure['page'][$v[0]])) {
 	$c = (empty($c)) ? $v[0] : $c;
 	$indexcat = ($jj == 0) ? $v[0] : $indexcat;
@@ -121,11 +123,13 @@ foreach ($cats as $k => $v) {
     $pagenav = cot_pagenav('index', $block_link_params, $v[3]['d'], $totalblock,
 	    $v[1], $catd);
     $filename = str_replace(array(' ', ',', '.', '-'), '_', $v[0]);
+
     $block = new XTemplate(cot_tplfile(($catn == 0) ? "block" : "block." . $filename,
 			    'plug'));
     $sql_rowset = $sql->fetchAll();
 
     $jj = 0;
+//    if ($cat == 'company-news') cot_print ($sql_rowset);
     foreach ($sql_rowset as $pag) {
 	$jj++;
 	$url = cot_url('index', 'c=' . $pag['page_cat']);
@@ -277,6 +281,7 @@ foreach ($cats as $k => $v) {
     $pagenav = cot_pagenav('index', $block_link_params, $v[3]['d'], $totalblock,
 	    $v[1], $catd);
     $filename = str_replace(array(' ', ',', '.', '-'), '_', $v[0]);
+//     if ($v[0] == 'company-news')    cot_print ($cat,$filename);
     $block = new XTemplate(cot_tplfile(($catn == 0) ? "block" : "block." . $filename,
 			    'plug'));
     $sql_rowset = $sql->fetchAll();

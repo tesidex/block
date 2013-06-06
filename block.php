@@ -25,14 +25,16 @@ list($pg, $d, $durl) = cot_import_pagenav('d',
 $c = cot_import('c', 'G', 'TXT');
 $c = (!isset($structure['page'][$c])) ? '' : $c;
 
-$cfg['plugin']['block']['category'] = 'blogs|4|150,newspaper|2|400,expertise|1|250,calendar|1|250,company-news|5|150';
+$cfg['plugin']['block']['category'] = 'blogs|4|150,newspaper|2|400,expertise|1|250,calendar|1|250';
 $categories = explode(',', $cfg['plugin']['block']['category']);
 $jj = 0;
 $cats = array();
 
+//cot_print($categories);
 
 foreach ($categories as $v) {
     $v = explode('|', trim($v));
+//    if ($v[0] == 'company-news') cot_print ($structure['page']);
     if (isset($structure['page'][$v[0]])) {
 	$c = (empty($c)) ? $v[0] : $c;
 	$indexcat = ($jj == 0) ? $v[0] : $indexcat;
@@ -122,11 +124,13 @@ foreach ($cats as $k => $v) {
     $pagenav = cot_pagenav('index', $block_link_params, $v[3]['d'], $totalblock,
 	    $v[1], $catd);
     $filename = str_replace(array(' ', ',', '.', '-'), '_', $v[0]);
+
     $block = new XTemplate(cot_tplfile(($catn == 0) ? "block" : "block." . $filename,
 			    'plug'));
     $sql_rowset = $sql->fetchAll();
 
     $jj = 0;
+//    if ($cat == 'company-news') cot_print ($sql_rowset);
     foreach ($sql_rowset as $pag) {
 	$jj++;
 	$url = cot_url('index', 'c=' . $pag['page_cat']);
@@ -196,7 +200,7 @@ foreach ($cats as $k => $v) {
 
 
 
-$cfg['plugin']['block']['category'] = 'otzyvy|4|150,vitrina-turov|4|150,novosti|4|150,turbiznes|4|150,obyavleniya|4|150';
+$cfg['plugin']['block']['category'] = 'otzyvy|4|150,vitrina-turov|4|150,novosti|4|150,turbiznes|4|150,obyavleniya|4|150,company-news|5|150';
 $categories = explode(',', $cfg['plugin']['block']['category']);
 $catn = 1; 
 $jj = 0;
@@ -278,6 +282,7 @@ foreach ($cats as $k => $v) {
     $pagenav = cot_pagenav('index', $block_link_params, $v[3]['d'], $totalblock,
 	    $v[1], $catd);
     $filename = str_replace(array(' ', ',', '.', '-'), '_', $v[0]);
+//     if ($v[0] == 'company-news')    cot_print ($cat,$filename);
     $block = new XTemplate(cot_tplfile(($catn == 0) ? "block" : "block." . $filename,
 			    'plug'));
     $sql_rowset = $sql->fetchAll();

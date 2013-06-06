@@ -25,7 +25,7 @@ list($pg, $d, $durl) = cot_import_pagenav('d',
 $c = cot_import('c', 'G', 'TXT');
 $c = (!isset($structure['page'][$c])) ? '' : $c;
 
-$cfg['plugin']['block']['category'] = 'blogs|4|150,newspaper|2|400,expertise|1|250,calendar|1|250,company-news|5|150';
+$cfg['plugin']['block']['category'] = 'blogs|4|150,newspaper|2|400,expertise|1|250,calendar|1|250';
 $categories = explode(',', $cfg['plugin']['block']['category']);
 $jj = 0;
 $cats = array();
@@ -44,7 +44,6 @@ foreach ($categories as $v) {
 		    ? $_GET['d'] : $_GET[$v[0] . 'd'];
 	list($v[3]['pg'], $v[3]['d'], $v[3]['durl']) = cot_import_pagenav($v[0] . 'd',
 		$v[1]);
-
 	$cats[$v[0]] = $v;
 	$jj++;
     }
@@ -66,7 +65,7 @@ $catn = 1;
 
 foreach ($cats as $k => $v) {
     $cat = ($catn == 0) ? $c : $v[0];
-
+    
     $tagname = str_replace(array(' ', ',', '.', '-'), '_', strtoupper($v[0]));
 
     // Cache for guests
@@ -101,7 +100,7 @@ foreach ($cats as $k => $v) {
 			WHERE $where ORDER BY page_date DESC LIMIT " . $v[3]['d'] . ", " . $v[1]);
     $totalblock = $db->query("SELECT COUNT(*)
 			FROM $db_pages AS p $block_join_tables WHERE " . $where)->fetchColumn();
-//if ($cat == 'calendar') cot_print ($sql);
+//if ($cat == 'company-news') cot_print ($sql);
     if ($v[3]['d'] < 0 || $totalblock > 0 && $v[3]['d'] > $totalblock) {
 	cot_die_message(404);
     }
@@ -196,7 +195,7 @@ foreach ($cats as $k => $v) {
 
 
 
-$cfg['plugin']['block']['category'] = 'otzyvy|4|150,vitrina-turov|4|150,novosti|4|150,turbiznes|4|150,obyavleniya|4|150';
+$cfg['plugin']['block']['category'] = 'otzyvy|4|150,vitrina-turov|4|150,novosti|4|150,turbiznes|4|150,obyavleniya|4|150,company-news|5|150';
 $categories = explode(',', $cfg['plugin']['block']['category']);
 $catn = 1; 
 $jj = 0;

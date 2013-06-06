@@ -40,7 +40,9 @@ function blockrecent($mode, $pagesnum = 5) {
 //		$orderby = "ORDER BY page_count";
 
 	    $orderby = "ORDER BY new_count";
-
+	    
+if (!$db_news) {$db_news = 'cot_news';}
+	    
 	    $sql = $db->query("SELECT * FROM $db_news
 		$where $orderby LIMIT $pagesnum");
 	} elseif ($mode == 'discuss') {
